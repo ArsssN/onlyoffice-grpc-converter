@@ -2,12 +2,20 @@ syntax = "proto3";
 
 package converter;
 
+import "google/api/annotations.proto";
+
 service OnlyOfficeConverter {
-    rpc ConvertPPTXToPDF (ConvertRequest) returns (ConvertResponse);
+    rpc ConvertPPTXToPDF (ConvertRequest) returns (ConvertResponse) {
+        option (google.api.http) = {
+            post: "/convert/{to}"
+            body: "*"
+        };
+    }
 }
 
 message ConvertRequest {
     string pptx_path = 1;
+    string to = 2;
 }
 
 message ConvertResponse {
