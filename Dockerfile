@@ -26,8 +26,17 @@ ENV PATH="/opt/onlyoffice/documentbuilder/:$PATH"
 WORKDIR /app
 COPY . .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir grpcio grpcio-tools
+# Install Python dependencies from requirements.txt first
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make the build script executable and run it
+RUN chmod +x build_proto.sh && ./build_proto.sh
+
+# Install protobuf explicitly to ensure it's available
+RUN pip install --no-cache-dir protobuf>=6.31.0
+
+# Add generated directory to PYTHONPATH
+ENV PYTHONPATH="/app:${PYTHONPATH}"
 
 # Expose the gRPC port
 EXPOSE 50051
