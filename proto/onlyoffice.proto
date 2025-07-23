@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package converter;
+
+service OnlyOfficeConverter {
+    rpc ConvertPPTXToPDF (ConvertRequest) returns (ConvertResponse);
+}
+
+message ConvertRequest {
+    string pptx_path = 1;
+}
+
+message ConvertResponse {
+    string pdf_path = 1;
+    string error = 2;
+}

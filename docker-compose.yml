@@ -1,0 +1,8 @@
+services:
+  onlyoffice-grpc:
+    image: onlyoffice-grpc
+    build: .
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./pptx_files:/data
